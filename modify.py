@@ -16,6 +16,6 @@ def replace(file_path, pattern, subst):
     #Move new file
     move(abs_path, file_path)
 
-filepath = 'datasets/breast-cancer-wisconsin.data'
+filepath = 'datasets/house-votes-84.data'
 
-replace(filepath,'?','1')
+replace(filepath,'republica0','0')
