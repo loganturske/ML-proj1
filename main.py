@@ -77,7 +77,7 @@ def winnow_algo(filename, alpha, theta):
 
 def main():
 	# winnow_algo('datasets/test_dataset.data', 2, .5)
-	winnow_algo('datasets/house-votes-84.data', 2, .5)
+	winnow_algo('datasets/breast-cancer-wisconsin.data', 2, .5)
 
 if __name__ == "__main__":
     main()
