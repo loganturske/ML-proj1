@@ -1,9 +1,9 @@
-import urllib
+# import urllib
 import numpy
-from tempfile import mkstemp
-from shutil import move
-from os import fdopen, remove
-import pandas as pd
+# from tempfile import mkstemp
+# from shutil import move
+# from os import fdopen, remove
+# import pandas as pd
 import csv
 def replace(file_path, pattern, subst):
     #Create temp file
@@ -39,20 +39,36 @@ def change_rows(file_path):
     lines = list(r)
     for row in lines:
         print "Org: " + str(row)
-        if float(row[0]) == float(2):
-            row[0] = 0
-        else:
+        if row[0] == 'Iris-setosa':
             row[0] = 1
-        for i in xrange(1, len(row)):
-            if float(row[i]) > float(5):
-                row[i] = 1
-            else:
-                row[i] = 0
+        else:
+            row[0] = 0
+
+        if float(row[1]) > 5.8:
+            row[1] = 1
+        else:
+            row[1] = 0
+
+        if float(row[2]) > 3.0:
+            row[2] = 1
+        else:
+            row[2] = 0
+
+        if float(row[3]) > 3.7:
+            row[3] = 1
+        else:
+            row[3] = 0
+
+        if float(row[4]) > 1.2:
+            row[4] = 1
+        else:
+            row[4] = 0
+
         # print "PRO: " + str(row)
 
-    writer = csv.writer(open('new-cancer.csv', 'w'))
+    writer = csv.writer(open('new-iris.csv', 'w'))
     writer.writerows(lines)
     
-filepath = 'reordered.csv'
+filepath = 'iris.csv'
 change_rows(filepath)
 # replace(filepath,'republica0','0')
