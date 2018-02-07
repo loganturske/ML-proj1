@@ -45,8 +45,8 @@ def winnow_algo(test_set, training_set, alpha, theta):
 					if x:
 						weight_set[weight_to_change] = weight_set[weight_to_change] / alpha
 					weight_to_change += 1
-	print "Winnow-2 weight model:"
-	print weight_set
+	# print "Winnow-2 weight model:"
+	# print weight_set
 
 	num_correct = 0
 	# For every instance in the test set
@@ -70,7 +70,8 @@ def winnow_algo(test_set, training_set, alpha, theta):
 			num_correct += 1
 
 	accuracy = float(float(num_correct) / float(test_set.shape[0]))
-	print('Winnow Accuracy: {0}%').format(accuracy*100)
+	# print('Winnow Accuracy: {0}%').format(accuracy*100)
+	return accuracy
 
 def load_CSV(filename):
 	# Open the file to read
@@ -110,7 +111,6 @@ def stdev(arr):
 	# Get the standard deviation of the entire array that was passed in
 	# Start by getting the variance
 	variance = sum([pow(x-mean(arr),2) for x in arr])/float(len(arr)-1)
-	print variance
 	# Then take the square root of the variance
 	return math.sqrt(variance)
 
@@ -180,32 +180,59 @@ def get_accuracy(testSet, predictions):
 def naive_bayes_algo(test_set, training_set):
 	# Summarize the attributes
 	summaries = summarize_by_class(training_set)
-	print summaries
+	# print summaries
 	# Get the predictions of the test set
 	predictions = get_predictions(summaries, test_set)
 	#Get the accuracy
 	accuracy = get_accuracy(test_set, predictions)
-	print('Naive Bayes Accuracy: {0}%').format(accuracy)
+	# print('Naive Bayes Accuracy: {0}%').format(accuracy)
+	return accuracy
 
 def main():
 
 	print "############ breast-cancer-wisconsin.data ############"
 	data = load_CSV('datasets/breast-cancer-wisconsin.data')
 	test_set, training_set = split_data(data)
-	winnow_algo(test_set, training_set, 2, .5)
-	naive_bayes_algo(test_set, training_set)
+	w = 0
+	n = 0
+	for x in xrange(1,1000):
+		if winnow_algo(test_set, training_set, 2, .5) > naive_bayes_algo(test_set, training_set):
+			w += 1
+		else:
+			n += 1
+
+	print "Winnow-2: " + str(w)
+	print "Naive Bayes: " + str(n)
+	print
 
 	print "############ house-votes-84.data ############"
 	data = load_CSV('datasets/house-votes-84.data')
 	test_set, training_set = split_data(data)
-	winnow_algo(test_set, training_set, 2, .5)
-	naive_bayes_algo(test_set, training_set)
+	w = 0
+	n = 0
+	for x in xrange(1,1000):
+		if winnow_algo(test_set, training_set, 2, .5) > naive_bayes_algo(test_set, training_set):
+			w += 1
+		else:
+			n += 1
 
+	print "Winnow-2: " + str(w)
+	print "Naive Bayes: " + str(n)
+	print
 	print "############ iris.data ############"
 	data = load_CSV('datasets/iris.data')
 	test_set, training_set = split_data(data)
-	winnow_algo(test_set, training_set, 2, .5)
-	naive_bayes_algo(test_set, training_set)
+	w = 0
+	n = 0
+	for x in xrange(1,1000):
+		if winnow_algo(test_set, training_set, 2, .5) > naive_bayes_algo(test_set, training_set):
+			w += 1
+		else:
+			n += 1
+
+	print "Winnow-2: " + str(w)
+	print "Naive Bayes: " + str(n)
+	print
 
 if __name__ == "__main__":
     main()
